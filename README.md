@@ -1,4 +1,4 @@
-# todometer
+# todometer | ci/cd project
 
 A simple, meter-based to-do list built with Electron and React.
 
