@@ -36,6 +36,9 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Check outdated
+        run: npm outdated
+
 #  security:
 #    runs-on: ubuntu-latest
 #    steps:
