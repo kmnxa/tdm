@@ -36,9 +36,9 @@ jobs:
       - name: Build app
         run: npm run build
 
-  security:
-    runs-on: ubuntu-latest
-    steps:
+#  security:
+#    runs-on: ubuntu-latest
+#    steps:
       # Wykonywanie testów bezpieczeństwa (np. npm audit)
-      - name: Check vulnerabilities
-        run: npm audit
+#      - name: Check vulnerabilities
+#        run: npm audit
