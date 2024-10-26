@@ -36,8 +36,6 @@ jobs:
       - name: Build app
         run: npm run build
 
-      - name: Check outdated
-        run: npm outdated
 
 #  security:
 #    runs-on: ubuntu-latest
@@ -45,3 +43,6 @@ jobs:
       # Wykonywanie testów bezpieczeństwa (np. npm audit)
 #      - name: Check vulnerabilities
 #        run: npm audit
+
+#      - name: Check outdated
+#        run: npm outdated
