@@ -36,6 +36,9 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Security test
+        run: npm install --package-lock-only && npm audit
+
 
 #  security:
 #    runs-on: ubuntu-latest
