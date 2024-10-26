@@ -41,4 +41,4 @@ jobs:
     steps:
       # Wykonywanie testów bezpieczeństwa (np. npm audit)
       - name: Check vulnerabilities
-        run: npm audit --audit-level=high
+        run: npm audit
