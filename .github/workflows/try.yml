@@ -1,0 +1,44 @@
+name: CI/CD for Todometer
+
+# Definicja zdarzeń, które uruchamiają workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout kodu
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Instalacja Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' 
+
+      # Instalacja zależności
+      - name: Install dependencies
+        run: npm install
+
+      # Testy jednostkowe
+      - name: Run unit tests
+        run: npm test
+
+      # Budowanie aplikacji
+      - name: Build app
+        run: npm run build
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      # Wykonywanie testów bezpieczeństwa (np. npm audit)
+      - name: Check vulnerabilities
+        run: npm audit --audit-level=high
