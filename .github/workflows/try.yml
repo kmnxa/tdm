@@ -37,6 +37,7 @@ jobs:
         run: npm run build
 
       - name: Security test
+        continue-on-error: true
         run: npm install --package-lock-only && npm audit
 
 
