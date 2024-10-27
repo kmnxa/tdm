@@ -50,9 +50,9 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
-      # Lint test
+      # Lint test v2
       - name: Run linters
-        uses: wearerequired/lint-action@v2
+        uses: actions/lint-action@v2
         with:
           eslint: true
 
