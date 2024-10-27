@@ -50,11 +50,17 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
-      # Lint test v2
+  #     Lint test v2
    #   - name: Run linters
-   #     uses: actions/lint-action@v2
-   #     with:
-   #       eslint: true
+    #    uses: actions/lint-action@v2
+     #   with:
+      #    eslint: true
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v7.1.0 
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
       
 
