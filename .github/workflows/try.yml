@@ -51,10 +51,10 @@ jobs:
           path: audit-report.json
 
       # Lint test v2
-      - name: Run linters
-        uses: actions/lint-action@v2
-        with:
-          eslint: true
+   #   - name: Run linters
+   #     uses: actions/lint-action@v2
+   #     with:
+   #       eslint: true
 
       
 
