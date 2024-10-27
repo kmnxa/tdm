@@ -50,6 +50,12 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
+      # Lint test
+      - name: Run ESLint
+        run: npm run lint
+
+      
+
 #  security:
 #    runs-on: ubuntu-latest
 #    steps:
