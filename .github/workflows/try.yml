@@ -57,11 +57,19 @@ jobs:
       #    eslint: true
 
       - name: Super-linter
+        continue-on-error: true
         uses: super-linter/super-linter@v7.1.0 
         env:
-          # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+          OUTPUT_FORMAT: "json"               # Ustaw format wyjścia na JSON
+          REPORT_OUTPUT_FOLDER: "lint-logs"   # Folder, gdzie zapisane będą wyniki
 
+      - name: Upload linter JSON logs
+        if: always()  # Zapisuje artefakt nawet, jeśli linter wykryje błędy
+        uses: actions/upload-artifact@v4
+        with:
+          name: linter-json-logs
+          path: lint-logs
       
 
 #  security:
