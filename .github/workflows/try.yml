@@ -18,11 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalacja Node.js
+      # Instalacja Node.js, zmiana na 20 a było 23
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23' 
+          node-version: '20' 
 
       # Instalacja zależności
       - name: Install dependencies
