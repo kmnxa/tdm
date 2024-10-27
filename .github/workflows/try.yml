@@ -38,12 +38,17 @@ jobs:
 
       - name: Security test
         continue-on-error: true
-        run: npm install --package-lock-only && npm audit
+        run: npm install --package-lock-only && npm audit --json > audit-report.json
 
-      - name: Check outdated
-        continue-on-error: true
-        run: npm outdated
+   #   - name: Check outdated
+    #    continue-on-error: true
+     #   run: npm outdated
 
+      - name: Upload audit report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: audit-report.json
 
 #  security:
 #    runs-on: ubuntu-latest
