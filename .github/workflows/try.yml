@@ -1,6 +1,5 @@
 name: CI/CD for Todometer
 
-# Definicja zdarzeń, które uruchamiają workflow
 on:
   push:
     branches:
@@ -44,7 +43,7 @@ jobs:
       - name: Build app
         run: npm run build
 
-      - name: Npm audit test
+      - name: Npm audit test #w ramach SCA
         continue-on-error: true
         run: npm install --package-lock-only && npm audit --json > audit-report.json
        # run: npm audit --json > audit-report.json
@@ -119,15 +118,15 @@ jobs:
         id: dep_rev
         uses: actions/dependency-review-action@v4 
 
-      - name: Save Dependency Review Report
-        run: |
-          echo "${{ steps.dependency_review.outputs.report }}" > dependency-review-report.json
+ #     - name: Save Dependency Review Report
+  #      run: |
+   #       echo "${{ steps.dependency_review.outputs.report }}" > dependency-review-report.json
 
-      - name: Upload Dependency Review Report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dependency-review-report
-          path: dependency-review-report.json
+    #  - name: Upload Dependency Review Report as artifact
+     #   uses: actions/upload-artifact@v4
+      #  with:
+       #   name: dependency-review-report
+        #  path: dependency-review-report.json
 
 
 #Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
