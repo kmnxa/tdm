@@ -48,7 +48,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-
       # Konfiguracja cache dla zależności npm (w przypadku potrzeby w tym kroku)
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -62,11 +61,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-    
+      
       - name: Npm audit test
         continue-on-error: true
       #  run: npm install --package-lock-only && npm audit --json > audit-report.json
-          run: npm audit --json > audit-report.json
+        run: npm audit --json > audit-report.json
 
       - name: Upload audit report as artifact
         uses: actions/upload-artifact@v4
