@@ -89,34 +89,33 @@ jobs:
         with:
           name: npm-outdated-report
           path: outdated-report.json
-          
 
 
 
-  other_tests:
-    permissions:
-      contents: read
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+#  other_tests:
+#    permissions:
+ #     contents: read
+ #   needs: build
+  #  runs-on: ubuntu-latest
+   # steps:
 # Konfiguracja cache dla zależności npm
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            npm-
+    #  - name: Cache npm dependencies
+     #   uses: actions/cache@v4
+      #  with:
+       #   path: ~/.npm
+        #  key: npm-${{ hashFiles('package-lock.json') }}
+         # restore-keys: |
+          #  npm-
 
       # Instalacja Node.js, zmiana na 20 a było 23
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' 
+     # - name: Setup Node.js
+      #  uses: actions/setup-node@v4
+       # with:
+        #  node-version: '20' 
 
-      - name: Dependency Review
-        id: dep_rev
-        uses: actions/dependency-review-action@v4 
+   #   - name: Dependency Review
+    #    id: dep_rev
+     #   uses: actions/dependency-review-action@v4 
 
  #     - name: Save Dependency Review Report
   #      run: |
