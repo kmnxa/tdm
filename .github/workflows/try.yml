@@ -55,6 +55,14 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
+#Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
+      - name: Super-linter
+        continue-on-error: true
+        uses: super-linter/super-linter@v7.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+
+
   security_tests:
     needs: build
     runs-on: ubuntu-latest
@@ -82,15 +90,15 @@ jobs:
         with:
           name: npm-outdated-report
           path: outdated-report.json
+          
+      - name: Run ESLint with security rules
+        run: npx eslint . --ext .js,.jsx --json > eslint-report.json
 
-# Konfiguracja cache dla zależności npm
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
+      - name: Upload eslint report as artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            npm-
+          name: eslint-report
+          path: eslint-report.json
 
 
   other_tests:
@@ -115,8 +123,8 @@ jobs:
           node-version: '20' 
 
 #Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
-      - name: Super-linter
-        continue-on-error: true
-        uses: super-linter/super-linter@v7.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+    #  - name: Super-linter
+     #   continue-on-error: true
+      #  uses: super-linter/super-linter@v7.1.0
+       # env:
+        #  GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
