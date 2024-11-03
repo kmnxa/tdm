@@ -38,7 +38,8 @@ jobs:
   security_tests:
     needs: build
     runs-on: ubuntu-latest
-      - name: Security test
+    steps:
+      - name: Npm audit test
         continue-on-error: true
         run: npm install --package-lock-only && npm audit --json > audit-report.json
 
@@ -58,17 +59,18 @@ jobs:
           name: npm-outdated-report
           path: outdated-report.json
 
-  #     Lint test v2
-   #   - name: Run linters
-    #    uses: actions/lint-action@v2
-     #   with:
-      #    eslint: true
 
-  #    - name: Super-linter
-   #     continue-on-error: true
-    #    uses: super-linter/super-linter@v7.1.0 
-    #    env:
-     #     GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+#  other_tests:
+ #   permissions:
+  #    issues: write
+  #  needs: build
+  #  runs-on: ubuntu-latest
+  #  steps:
+   #   - name: Super-linter
+  #      continue-on-error: true
+    #    uses: super-linter/super-linter@v7.1.0
+     #   env:
+      #    GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
       
 
