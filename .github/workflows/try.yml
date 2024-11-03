@@ -92,19 +92,19 @@ jobs:
 
 #testing snyk
       - name: Run Snyk Code Analysis
-        continue-on-error: true
+      #  continue-on-error: true
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: test --code --json > snyk-code-report.json
+      #  with:
+     #     args: test --code --json > snyk-code-report.json
 
       # Upload wyniku jako artefakt
-      - name: Upload Snyk Code report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: snyk-code-report
-          path: snyk-code-report.json
+      #- name: Upload Snyk Code report as artifact
+      #  uses: actions/upload-artifact@v4
+       # with:
+        #  name: snyk-code-report
+         # path: snyk-code-report.json
 
 
 #  other_tests:
