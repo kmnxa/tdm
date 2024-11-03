@@ -12,7 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       # Checkout kodu
       - name: Checkout repository
@@ -36,13 +35,12 @@ jobs:
       - name: Build app
         run: npm run build
 
+  security_tests:
+    needs: build
+    runs-on: ubuntu-latest
       - name: Security test
         continue-on-error: true
         run: npm install --package-lock-only && npm audit --json > audit-report.json
-
-   #   - name: Check outdated
-    #    continue-on-error: true
-     #   run: npm outdated
 
       - name: Upload audit report as artifact
         uses: actions/upload-artifact@v4
@@ -50,26 +48,28 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
+      - name: Check outdated
+        continue-on-error: true
+        run: npm outdated > outdated-report.json
+
+      - name: Upload outdated report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-outdated-report
+          path: outdated-report.json
+
   #     Lint test v2
    #   - name: Run linters
     #    uses: actions/lint-action@v2
      #   with:
       #    eslint: true
 
-      - name: Super-linter
-        continue-on-error: true
-        uses: super-linter/super-linter@v7.1.0 
-        env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+  #    - name: Super-linter
+   #     continue-on-error: true
+    #    uses: super-linter/super-linter@v7.1.0 
+    #    env:
+     #     GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
       
 
-#  security:
-#    runs-on: ubuntu-latest
-#    steps:
-      # Wykonywanie testów bezpieczeństwa (np. npm audit)
-#      - name: Check vulnerabilities
-#        run: npm audit
 
-#      - name: Check outdated
-#        run: npm outdated
