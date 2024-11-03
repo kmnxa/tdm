@@ -23,6 +23,15 @@ jobs:
         with:
           node-version: '20' 
 
+# Konfiguracja cache dla zależności npm
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
+
       # Instalacja zależności
       - name: Install dependencies
         run: npm install
@@ -39,6 +48,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+
+      # Konfiguracja cache dla zależności npm (w przypadku potrzeby w tym kroku)
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+    
       - name: Npm audit test
         continue-on-error: true
         run: npm install --package-lock-only && npm audit --json > audit-report.json
