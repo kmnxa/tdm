@@ -91,14 +91,7 @@ jobs:
           name: npm-outdated-report
           path: outdated-report.json
           
-      - name: Run ESLint with security rules
-        run: npx eslint . --ext .js,.jsx --json > eslint-report.json
 
-      - name: Upload eslint report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: eslint-report
-          path: eslint-report.json
 
 
   other_tests:
@@ -121,6 +114,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' 
+
+      - name: Dependency Review
+        id: dep_rev
+        uses: actions/dependency-review-action@v4 
+
+      - name: Save Dependency Review Report
+        run: |
+          echo "${{ steps.dependency_review.outputs.report }}" > dependency-review-report.json
+
+      - name: Upload Dependency Review Report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-review-report
+          path: dependency-review-report.json
+
 
 #Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
     #  - name: Super-linter
