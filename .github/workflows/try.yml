@@ -94,8 +94,8 @@ jobs:
 
 
   other_tests:
-#    permissions:
- #     issues: write
+    permissions:
+      contents: read
     needs: build
     runs-on: ubuntu-latest
     steps:
