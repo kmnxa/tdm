@@ -65,7 +65,8 @@ jobs:
     
       - name: Npm audit test
         continue-on-error: true
-        run: npm install --package-lock-only && npm audit --json > audit-report.json
+      #  run: npm install --package-lock-only && npm audit --json > audit-report.json
+          run: npm audit --json > audit-report.json
 
       - name: Upload audit report as artifact
         uses: actions/upload-artifact@v4
@@ -83,18 +84,43 @@ jobs:
           name: npm-outdated-report
           path: outdated-report.json
 
+# Konfiguracja cache dla zależności npm
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
 
-#  other_tests:
- #   permissions:
-  #    issues: write
-  #  needs: build
-  #  runs-on: ubuntu-latest
-  #  steps:
-   #   - name: Super-linter
-  #      continue-on-error: true
-    #    uses: super-linter/super-linter@v7.1.0
-     #   env:
-      #    GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+
+  other_tests:
+    permissions:
+      issues: write
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+# Konfiguracja cache dla zależności npm
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
+
+      # Instalacja Node.js, zmiana na 20 a było 23
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+#Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
+      - name: Super-linter
+        continue-on-error: true
+        uses: super-linter/super-linter@v7.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
       
 
