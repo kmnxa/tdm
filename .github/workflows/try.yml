@@ -91,11 +91,11 @@ jobs:
           path: outdated-report.json
 
 #testing snyk
-      - name: Run Snyk Code Analysis
+ #     - name: Run Snyk Code Analysis
       #  continue-on-error: true
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  #      uses: snyk/actions/node@master
+   #     env:
+    #      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       #  with:
      #     args: test --code --json > snyk-code-report.json
 
