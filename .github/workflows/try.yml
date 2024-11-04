@@ -95,8 +95,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-              -Dsonar.organization= ${{ secrets.org_key_sonar }}
-              -Dsonar.projectKey= ${{ secrets.project_key_sonar }}
+              -Dsonar.organization=cc1xmn4gt7
+              -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
 
 
