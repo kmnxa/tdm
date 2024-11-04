@@ -89,24 +89,11 @@ jobs:
         with:
           name: npm-outdated-report
           path: outdated-report.json
-
-          #zobaczymy czy dziala super SAST
-      - name: Security check - super-sast-action
-        uses: DrPlumcake/super-sast-action@v1.0
-        with:
-          project_path: .
-          ignore_failure: true
-          repo_token: ${{ secrets.SECRET_1 }}
-
-    # This is optional
-     # - name: Security check artifacts
-      #  uses: actions/upload-artifact@v1
-       # with:
-        #  name: Security report - super sast
-         # path: |
-          #  super-sast.log
-           # log_dir/
-
+          
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@3.1.0
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 #testing snyk
