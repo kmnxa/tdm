@@ -61,7 +61,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
-
   security_tests:
     needs: build
     runs-on: ubuntu-latest
@@ -90,10 +89,10 @@ jobs:
           name: npm-outdated-report
           path: outdated-report.json
           
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@3.1.0
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@3.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 #testing snyk
