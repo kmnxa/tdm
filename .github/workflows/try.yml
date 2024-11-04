@@ -93,6 +93,11 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@v3.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+              -Dsonar.organization= ${{ secrets.org_key_sonar }}
+              -Dsonar.projectKey= ${{ secrets.project_key_sonar }}
+              -Dsonar.sources=.
 
 
 #testing snyk
