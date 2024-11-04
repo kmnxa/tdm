@@ -88,7 +88,8 @@ jobs:
         with:
           name: npm-outdated-report
           path: outdated-report.json
-          
+
+          #need to check if on sonar's side everything works
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v3.1.0
         env:
