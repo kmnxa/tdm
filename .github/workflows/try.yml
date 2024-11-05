@@ -106,8 +106,6 @@ jobs:
               -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
               
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
 
 #testing snyk
  #     - name: Run Snyk Code Analysis
