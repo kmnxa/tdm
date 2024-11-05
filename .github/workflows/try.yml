@@ -60,7 +60,7 @@ jobs:
         uses: super-linter/super-linter@v7.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
-                    OUTPUT_FORMAT: json # Ustawienie formatu JSON
+          OUTPUT_FORMAT: json # Ustawienie formatu JSON
           OUTPUT_DETAILS: detailed
           REPORT_OUTPUT: true # Umożliwia zapis wyników
           REPORT_FILE: super-linter-report.json # Plik JSON z wynikami\
