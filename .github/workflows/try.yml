@@ -15,8 +15,6 @@ jobs:
       # Checkout kodu
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Instalacja Node.js, zmiana na 20 a było 23
       - name: Setup Node.js
@@ -65,38 +63,38 @@ jobs:
           
 
           
-  static_tests:
+  security_tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
       # Konfiguracja cache dla zależności npm (w przypadku potrzeby w tym kroku)
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-           npm-
+  #    - name: Cache npm dependencies
+   #     uses: actions/cache@v4
+    #    with:
+     #     path: ~/.npm
+      #    key: npm-${{ hashFiles('package-lock.json') }}
+       #   restore-keys: |
+        #   npm-
            
-   #   - name: Check out code
-    #    uses: actions/checkout@v4
-     #   with:
-      #    fetch-depth: 0
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-   #   - name: Check outdated
-    #    continue-on-error: true
-     #   run: npm outdated --json > outdated-report.json
+  #    - name: Check outdated
+   #     continue-on-error: true
+    #    run: npm outdated --json > outdated-report.json
 
-    #  - name: Upload outdated report as artifact
-     #   uses: actions/upload-artifact@v4
-      #  with:
-       #   name: npm-outdated-report
-        #  path: outdated-report.json
+     # - name: Upload outdated report as artifact
+      #  uses: actions/upload-artifact@v4
+       # with:
+        #  name: npm-outdated-report
+         # path: outdated-report.json
 
           #need to check if on sonar's side everything works
       - name: SonarCloud Scan
