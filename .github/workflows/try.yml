@@ -63,19 +63,10 @@ jobs:
           
 
           
-  security_tests:
+  other_tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      # Konfiguracja cache dla zależności npm (w przypadku potrzeby w tym kroku)
-  #    - name: Cache npm dependencies
-   #     uses: actions/cache@v4
-    #    with:
-     #     path: ~/.npm
-      #    key: npm-${{ hashFiles('package-lock.json') }}
-       #   restore-keys: |
-        #   npm-
-           
       - name: Check out code
         uses: actions/checkout@v4
         with:
@@ -85,6 +76,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+           npm-
 
   #    - name: Check outdated
    #     continue-on-error: true
@@ -106,7 +105,9 @@ jobs:
               -Dsonar.organization=cc1xmn4gt7
               -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
-
+              
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
 
 #testing snyk
  #     - name: Run Snyk Code Analysis
@@ -117,34 +118,6 @@ jobs:
       #  with:
      #     args: test --code --json > snyk-code-report.json
 
-      # Upload wyniku jako artefakt
-      #- name: Upload Snyk Code report as artifact
-      #  uses: actions/upload-artifact@v4
-       # with:
-        #  name: snyk-code-report
-         # path: snyk-code-report.json
-
-
-#  other_tests:
-#    permissions:
- #     contents: read
- #   needs: build
-  #  runs-on: ubuntu-latest
-   # steps:
-# Konfiguracja cache dla zależności npm
-    #  - name: Cache npm dependencies
-     #   uses: actions/cache@v4
-      #  with:
-       #   path: ~/.npm
-        #  key: npm-${{ hashFiles('package-lock.json') }}
-         # restore-keys: |
-          #  npm-
-
-      # Instalacja Node.js, zmiana na 20 a było 23
-     # - name: Setup Node.js
-      #  uses: actions/setup-node@v4
-       # with:
-        #  node-version: '20' 
 
    #   - name: Dependency Review
     #    id: dep_rev
@@ -159,11 +132,3 @@ jobs:
       #  with:
        #   name: dependency-review-report
         #  path: dependency-review-report.json
-
-
-#Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
-    #  - name: Super-linter
-     #   continue-on-error: true
-      #  uses: super-linter/super-linter@v7.1.0
-       # env:
-        #  GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
