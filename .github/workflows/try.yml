@@ -61,24 +61,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
           
-      - name: Upload Super-Linter Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: super-linter-report
-          path: super-linter-report.md
+
           
   security_tests:
     needs: build
     runs-on: ubuntu-latest
     steps:
       # Konfiguracja cache dla zależności npm (w przypadku potrzeby w tym kroku)
-  #    - name: Cache npm dependencies
-   #     uses: actions/cache@v4
-    #    with:
-     #     path: ~/.npm
-      #    key: npm-${{ hashFiles('package-lock.json') }}
-       #   restore-keys: |
-        #   npm-
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+           npm-
            
       - name: Check out code
         uses: actions/checkout@v4
