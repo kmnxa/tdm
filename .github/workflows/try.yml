@@ -66,7 +66,7 @@ jobs:
           REPORT_FILE: super-linter-report.json # Plik JSON z wynikami\
           
       - name: Upload Super-Linter Report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: super-linter-report
           path: super-linter-report.json
