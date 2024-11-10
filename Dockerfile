@@ -1,5 +1,6 @@
 # Obraz Node.js z zainstalowanym Electronem
-FROM node:20
+FROM node:18
+#should be 20 I guess, but let's try
 
 # Katalog roboczy wewnątrz kontenera
 WORKDIR /app
@@ -15,7 +16,7 @@ RUN apt-get update && \
 COPY package*.json ./
 
 # Instalowanie Electron
-RUN npm install electron --save-dev
+RUN npm install electron --save-dev --force
 
 # Instalowanie zależności
 RUN npm cache clean --force && npm install --legacy-peer-deps --verbose
