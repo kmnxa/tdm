@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalowanie zależności
-RUN npm install
+RUN npm cache clean --force && npm install
 
 # Kopiowanie pozostałych plików aplikacji
 COPY . .
