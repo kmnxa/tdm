@@ -6,16 +6,22 @@ WORKDIR /app
 
 # Instalowanie zależności systemowych potrzebnych do działania Electron
 RUN apt-get update && \
-    apt-get install -y libgtk-3-0 libx11-xcb1 libnss3 libxkbfile1 \
-                       libgconf-2-4 libasound2 xvfb libgbm1
+    apt-get install -y \
+    libgtk-3-0 libx11-xcb1 libnss3 libxkbfile1 \
+    libgconf-2-4 libasound2 xvfb libgbm1 \
+    libatomic1 libstdc++6
 
 # Kopiowanie plików package.json i package-lock.json
 COPY package*.json ./
 
-# Czyszczenie cache npm i instalowanie zależności z flagą legacy-peer-deps
-RUN npm cache clean --force && npm install --legacy-peer-deps
+# Instalowanie Electron
+RUN npm install electron --save-dev
 
-# Kopiowanie pozostałych plików aplikacji
+# Instalowanie zależności
+RUN npm cache clean --force && npm install --legacy-peer-deps --verbose
+
+
+# Kopiowanie wszystkich plików aplikacji
 COPY . .
 
 # Budowanie aplikacji
