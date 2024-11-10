@@ -13,8 +13,10 @@ RUN apt-get update && \
                        libgconf-2-4 libasound2 xvfb
 
 # Czyszczenie cache npm i instalowanie zależności z wyłączeniem opcjonalnych
-RUN npm cache clean --force && npm install --no-optional
+#RUN npm cache clean --force && npm install --no-optional
 
+#konflikt różnych dependencies...
+RUN RUN npm install --legacy-peer-deps 
 # Kopiowanie pozostałych plików aplikacji
 COPY . .
 
