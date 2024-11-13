@@ -26,15 +26,18 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npm install dmg-license --save-dev  # Instalacja dmg-license
+          npm install dmg-license --save-dev  
+
 
       - name: Build application
         run: npm run build
 
       - name: Package application
+        continue-on-error: true
         run: npx electron-builder --${{ matrix.os == 'ubuntu-latest' && 'linux' || matrix.os == 'macos-latest' && 'mac' || 'win' }}  # Build per platform
       
       - name: Upload artifact
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: Todometer-${{ matrix.os }}
