@@ -1,5 +1,5 @@
 #Testing
-name: Build and Release Todometer
+name: Build and Release
 
 on:
   push:
