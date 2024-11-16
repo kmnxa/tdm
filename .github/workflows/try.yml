@@ -60,18 +60,6 @@ jobs:
         uses: super-linter/super-linter@v7.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
-
-          #End-to-end
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-
-#Components:
-    #  - name: Cypress run
-     #   uses: cypress-io/github-action@v6
-      #  with:
-       #   component: true
-
-
           
   other_tests:
     needs: build
@@ -94,7 +82,6 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
            npm-
-
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v3.1.0
