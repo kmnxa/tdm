@@ -93,6 +93,12 @@ jobs:
               -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
               
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # E2E
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
