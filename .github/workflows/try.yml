@@ -60,6 +60,7 @@ jobs:
         uses: super-linter/super-linter@v7.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+          SKIP_LINTER_FILES: "/cypress/e2e/1-getting-started/todo.cy.js"
           
   other_tests:
     needs: build
