@@ -1,6 +1,6 @@
 name: End-to-end tests
 on: push
-  branches: 
+  branches:
     - testing-cyp
 jobs:
   cypress-run:
