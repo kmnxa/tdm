@@ -104,15 +104,15 @@ jobs:
               -Dsonar.sources=.
               
        #End-to-end
-  #    - name: Cypress run
-   #     uses: cypress-io/github-action@v6.7.7
-      - name: install Cypress
-        run: npm install cypress --save-dev
-      #Components:
       - name: Cypress run
         uses: cypress-io/github-action@v6.7.7
-        with:
-          component: true
+   #   - name: install Cypress
+    #    run: npm install cypress --save-dev
+      #Components:
+  #    - name: Cypress run
+   #     uses: cypress-io/github-action@v6.7.7
+    #    with:
+     #     component: true
   #    - name: Check outdated
    #     continue-on-error: true
     #    run: npm outdated --json > outdated-report.json             
