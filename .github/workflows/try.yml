@@ -60,7 +60,17 @@ jobs:
         uses: super-linter/super-linter@v7.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
-          
+
+          #End-to-end
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+
+#Components:
+    #  - name: Cypress run
+     #   uses: cypress-io/github-action@v6
+      #  with:
+       #   component: true
+
 
           
   other_tests:
@@ -86,13 +96,6 @@ jobs:
            npm-
 
 
-     # - name: Upload outdated report as artifact
-      #  uses: actions/upload-artifact@v4
-       # with:
-        #  name: npm-outdated-report
-         # path: outdated-report.json
-
-          #need to check if on sonar's side everything works
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v3.1.0
         env:
@@ -103,40 +106,3 @@ jobs:
               -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
               
-       #End-to-end
-      - name: Cypress run
-        uses: cypress-io/github-action@v6.7.7
-   #   - name: install Cypress
-    #    run: npm install cypress --save-dev
-      #Components:
-  #    - name: Cypress run
-   #     uses: cypress-io/github-action@v6.7.7
-    #    with:
-     #     component: true
-  #    - name: Check outdated
-   #     continue-on-error: true
-    #    run: npm outdated --json > outdated-report.json             
-
-#testing snyk
- #     - name: Run Snyk Code Analysis
-      #  continue-on-error: true
-  #      uses: snyk/actions/node@master
-   #     env:
-    #      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #  with:
-     #     args: test --code --json > snyk-code-report.json
-
-
-   #   - name: Dependency Review
-    #    id: dep_rev
-     #   uses: actions/dependency-review-action@v4 
-
- #     - name: Save Dependency Review Report
-  #      run: |
-   #       echo "${{ steps.dependency_review.outputs.report }}" > dependency-review-report.json
-
-    #  - name: Upload Dependency Review Report as artifact
-     #   uses: actions/upload-artifact@v4
-      #  with:
-       #   name: dependency-review-report
-        #  path: dependency-review-report.json
