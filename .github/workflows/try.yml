@@ -96,6 +96,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: npm run start #ewentualnie builda dodam, ale już był wyżej
+          build: npm run dev #ewentualnie builda dodam, ale już był wyżej
 
         
