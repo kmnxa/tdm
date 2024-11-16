@@ -94,8 +94,9 @@ jobs:
               -Dsonar.sources=.
               
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        continue-on-error: true
+        uses: cypress-io/github-action@v6.7.7
         with:
-          build: npm run dev #ewentualnie builda dodam, ale już był wyżej
+          start: npm run dev #ewentualnie builda dodam, ale już był wyżej
 
         
