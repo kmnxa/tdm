@@ -27,7 +27,9 @@ jobs:
         continue-on-error: true #bo npm audit się odpala...
         run: |
           npm install
-          npm install dmg-license --save-dev  
+          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            npm install dmg-license --save-dev
+          fi
 
 
       - name: Build application
