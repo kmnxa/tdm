@@ -84,7 +84,15 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
            npm-
+      #End-to-end
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
 
+      #Components:
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
   #    - name: Check outdated
    #     continue-on-error: true
     #    run: npm outdated --json > outdated-report.json
