@@ -1,7 +1,8 @@
-name: End-to-end tests
-on: push
-  branches:
-    - testing-cyp
+name: Cypress tests
+on:
+  push:
+    branches:
+      - testing-cyp
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
