@@ -84,18 +84,7 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
            npm-
-      #End-to-end
-  #    - name: Cypress run
-   #     uses: cypress-io/github-action@v6.7.7
 
-      #Components:
-      - name: Cypress run
-        uses: cypress-io/github-action@v6.7.7
-        with:
-          component: true
-  #    - name: Check outdated
-   #     continue-on-error: true
-    #    run: npm outdated --json > outdated-report.json
 
      # - name: Upload outdated report as artifact
       #  uses: actions/upload-artifact@v4
@@ -114,6 +103,19 @@ jobs:
               -Dsonar.projectKey=kmnxa_tdm
               -Dsonar.sources=.
               
+       #End-to-end
+  #    - name: Cypress run
+   #     uses: cypress-io/github-action@v6.7.7
+      - name: install Cypress
+        run: npm install cypress --save-dev
+      #Components:
+      - name: Cypress run
+        uses: cypress-io/github-action@v6.7.7
+        with:
+          component: true
+  #    - name: Check outdated
+   #     continue-on-error: true
+    #    run: npm outdated --json > outdated-report.json             
 
 #testing snyk
  #     - name: Run Snyk Code Analysis
