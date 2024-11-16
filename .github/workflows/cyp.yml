@@ -5,17 +5,11 @@ on:
       - testing-cyp
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      # https://github.com/cypress-io/github-action
+      # E2E
       - name: Cypress run
         uses: cypress-io/github-action@v6
-#integracyjne jeszcze
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          component: true
+
