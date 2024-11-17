@@ -1,0 +1,123 @@
+#testing in other way
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'  
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  
+
+      - name: Install dependencies
+        continue-on-error: true 
+        run: |
+          npm install
+          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            npm install dmg-license --save-dev
+          fi
+
+      - name: Build application
+        run: npm run build
+
+      - name: Package application
+        run: npx electron-builder --linux  # Build for Linux
+        env:
+          GH_TOKEN: ${{ secrets.SECRET_1 }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Todometer-ubuntu
+          path: dist/
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  
+
+      - name: Install dependencies
+        continue-on-error: true
+        run: |
+          npm install
+          npm install dmg-license --save-dev  # Only needed on macOS
+
+      - name: Build application
+        run: npm run build
+
+      - name: Package application
+        run: npx electron-builder --mac  # Build for macOS
+        env:
+          GH_TOKEN: ${{ secrets.SECRET_1 }}
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Todometer-macos
+          path: dist/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  
+
+      - name: Install dependencies
+        continue-on-error: true 
+        run: |
+          npm install
+
+      - name: Build application
+        run: npm run build
+
+      - name: Package application
+        run: npx electron-builder --win  
+        env:
+          GH_TOKEN: ${{ secrets.SECRET_1 }}
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Todometer-windows
+          path: dist/
+        env:
+          GH_TOKEN: ${{ secrets.SECRET_1 }}
+
+  release:
+    needs: [build-ubuntu, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./dist
+
+          #TO BE DONE & TESTED
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./dist/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
