@@ -118,6 +118,10 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./dist/**
+          files: |
+            ./dist/Todometer-linux/**
+            ./dist/Todometer-macos/**
+            ./dist/Todometer-windows/**
+            ./sourcecode/**
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
