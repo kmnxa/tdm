@@ -99,9 +99,9 @@ jobs:
         with:
           path: ./dist
 
-    - name: Upload release assets
-      uses: softprops/action-gh-release@v2
-      with:
-        files: ./dist/Todometer*
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./dist/Todometer*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
