@@ -99,20 +99,20 @@ jobs:
         with:
           path: ./dist
 
-      - name: Create Release if not exists
-        id: create_release
-        run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          RELEASE_URL=$(curl -s -X POST https://api.github.com/repos/${{ github.repository }}/releases \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"Release $TAG_NAME\",\"body\":\"Release of version $TAG_NAME\"}" | jq -r .url)
-          echo "Release URL: $RELEASE_URL"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #    - name: Create Release if not exists
+   #     id: create_release
+    #    run: |
+     #     TAG_NAME=${GITHUB_REF#refs/tags/}
+      #    RELEASE_URL=$(curl -s -X POST https://api.github.com/repos/${{ github.repository }}/releases \
+       #   -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        #  -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"Release $TAG_NAME\",\"body\":\"Release of version $TAG_NAME\"}" | jq -r .url)
+         # echo "Release URL: $RELEASE_URL"
+        #env:
+         # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
-          files: ./dist/**  # Upload all files in the dist directory - will see
+          files: ./dist/Todometer-ubuntu-*.deb, ./dist/Todometer-macos-*.dmg, ./dist/Todometer-windows-*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
