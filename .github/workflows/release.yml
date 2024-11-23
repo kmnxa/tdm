@@ -115,10 +115,10 @@ jobs:
         with:
           path: ./dist
 
-          #changed from ./dist/Todometer* to ./dist/
+          #changed from ./dist/Todometer* to ./dist/ to ./dist/Todometer-ubuntu/*.zip 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./dist/
+          files: ./dist/Todometer-ubuntu/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
