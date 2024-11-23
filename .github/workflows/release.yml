@@ -1,10 +1,5 @@
-#testing in other way
-name: Build and Release
-
 on:
   push:
-  #  branches:
-   #   - main
     tags:
       - 'v*.*.*'  # Trigger only when pushing a version tag, e.g., v1.0.0
 
@@ -14,19 +9,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  
-
-      - name: Install dependencies
-        continue-on-error: true # Bo npm audit się odpala...
-        run: |
-          npm install
-          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            npm install dmg-license --save-dev
-          fi
+          node-version: '20'
 
       - name: Build application
         run: npm run build
@@ -37,11 +24,11 @@ jobs:
           GH_TOKEN: ${{ secrets.SECRET_1 }}
 
       - name: Upload artifact
+        id: upload_ubuntu
         uses: actions/upload-artifact@v4
         with:
           name: Todometer-ubuntu
           path: dist/
-
 
   build-macos:
     runs-on: macos-latest
@@ -52,13 +39,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  
-
-      - name: Install dependencies
-        continue-on-error: true # Bo npm audit się odpala...
-        run: |
-          npm install
-          npm install dmg-license --save-dev  # Only needed on macOS
+          node-version: '20'
 
       - name: Build application
         run: npm run build
@@ -67,29 +48,24 @@ jobs:
         run: npx electron-builder --mac  # Build for macOS
         env:
           GH_TOKEN: ${{ secrets.SECRET_1 }}
-          
+
       - name: Upload artifact
+        id: upload_macos
         uses: actions/upload-artifact@v4
         with:
           name: Todometer-macos
           path: dist/
-
 
   build-windows:
     runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  
-
-      - name: Install dependencies
-        continue-on-error: true # Bo npm audit się odpala...
-        run: |
-          npm install
+          node-version: '20'
 
       - name: Build application
         run: npm run build
@@ -98,27 +74,43 @@ jobs:
         run: npx electron-builder --win  # Build for Windows
         env:
           GH_TOKEN: ${{ secrets.SECRET_1 }}
-          
+
       - name: Upload artifact
+        id: upload_windows
         uses: actions/upload-artifact@v4
         with:
           name: Todometer-windows
           path: dist/
 
-
   release:
-    needs: [build-ubuntu, build-macos, build-windows]
+    needs: [build-ubuntu, build-macos, build-windows]  # Upewniamy się, że build zakończy się przed tworzeniem release
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Pobieramy artefakty z poprzednich jobów
+      - name: Download Ubuntu artifact
         uses: actions/download-artifact@v4
         with:
-          path: ./dist/releases
+          name: ${{ needs.build-ubuntu.outputs.upload_ubuntu }}  # Odwołanie do uploadu Ubuntu przez zmienną
 
+      - name: Download MacOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build-macos.outputs.upload_macos }}
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build-windows.outputs.upload_windows }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./dist/releases/**
+          files: |
+            Todometer-ubuntu/*
+            Todometer-macos/*
+            Todometer-windows/*
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
