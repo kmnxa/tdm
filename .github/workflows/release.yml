@@ -128,10 +128,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
 
-      - name: Upload MAC
-        uses: Shopify/upload-to-release@v1
+      - name: Upload Linux
+        uses: Shopify/upload-to-release@v2
         with:
-          name: MacOS version
-          path: ./dist/Todometer-macos
+          name: Linux version
+          path: ./dist/Todometer-ubuntu
           repo-token: ${{ secrets.SECRET_1 }}
           #content-type: text/plain # Optional
