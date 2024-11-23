@@ -105,14 +105,14 @@ jobs:
           path: dist/
 
 
- # release:
-  #  needs: [build-ubuntu, build-macos, build-windows]
-   # runs-on: ubuntu-latest
-    #steps:
-     # - name: Download artifacts
-      #  uses: actions/download-artifact@v4
-       # with:
-        #  path: ./dist
+  release:
+    needs: [build-ubuntu, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./dist
       #- name: Display structure of downloaded files
        # run: ls -R ./dist
 
@@ -126,3 +126,12 @@ jobs:
             ./dist/Todometer-windows
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
+
+
+      - name: Upload MAC
+        uses: Shopify/upload-to-release@v1
+        with:
+          name: MacOS version
+          path: ./dist/Todometer-macos
+          repo-token: ${{ secrets.SECRET_1 }}
+          #content-type: text/plain # Optional
