@@ -109,29 +109,26 @@ jobs:
     needs: [build-ubuntu, build-macos, build-windows]
     runs-on: ubuntu-latest
     steps:
+      - name: Create folder
+        run: mkdir versions & pwd
       - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ./dist
+        uses: actions/download-artifact@v4.1.8
+      #  with:
+       #   path: versions
+      - name: Display structure of downloaded files
+        run: ls -R
       #- name: Display structure of downloaded files
        # run: ls -R ./dist
 
+    #  - name: Create Release
+     #   uses: softprops/action-gh-release@v2
+      #  with:
+       #   files: |
+        #    ./dist/Todometer-macos/**
+         #   ./dist/Todometer-ubuntu/**
+          #  ./dist/Todometer-windows/**
+        #env:
+         # GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            ./dist/Todometer-macos
-            ./dist/Todometer-ubuntu
-            ./dist/Todometer-windows
-        env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
 
 
-      - name: Upload Linux
-        uses: Shopify/upload-to-release@v2.0.0
-        with:
-          name: Linux version
-          path: ./dist/Todometer-ubuntu
-          repo-token: ${{ secrets.SECRET_1 }}
-          #content-type: text/plain # Optional
