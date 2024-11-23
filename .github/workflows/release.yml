@@ -129,7 +129,7 @@ jobs:
 
 
       - name: Upload Linux
-        uses: Shopify/upload-to-release@v2
+        uses: Shopify/upload-to-release@v2.0.0
         with:
           name: Linux version
           path: ./dist/Todometer-ubuntu
