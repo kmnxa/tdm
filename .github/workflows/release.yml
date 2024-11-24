@@ -118,9 +118,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-          #  /home/runner/work/tdm/tdm/Todometer-macos.zip
-            ${{ github.workspace }}/Todometer-macos.zip
-            ${{ github.workspace }}/Todometer-ubuntu.zip
+         #   /home/runner/work/tdm/tdm/Todometer-macos.zip
+            ./Todometer-macos.zip
+
+          #  ${{ github.workspace }}/Todometer-macos.zip
+           # ${{ github.workspace }}/Todometer-ubuntu.zip
            # /home/runner/work/tdm/tdm/Todometer-ubuntu.zip
             #/home/runner/work/tdm/tdm/Todometer-windows.zip
           
