@@ -12,7 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout kodu
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -22,7 +21,6 @@ jobs:
         with:
           node-version: '20' 
 
-# Konfiguracja cache dla zależności npm
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -31,11 +29,10 @@ jobs:
           restore-keys: |
             npm-
 
-      # Instalacja zależności
       - name: Install dependencies
         run: npm install
 
-      # Testy jednostkowe (prawdopodobnie)
+      # Testy jednostkowe, wizualne, renderowania
       - name: Run unit tests
         run: npm test
 
@@ -46,7 +43,6 @@ jobs:
       - name: Npm audit test #w ramach SCA
         continue-on-error: true
         run: npm install --package-lock-only && npm audit --json > audit-report.json
-       # run: npm audit --json > audit-report.json
 
       - name: Upload audit report as artifact
         uses: actions/upload-artifact@v4
@@ -54,7 +50,6 @@ jobs:
           name: npm-audit-report
           path: audit-report.json
 
-#Tego jeszcze nie jestem pewna czy tak zostanie czy inny linter użyje
       - name: Super-linter
         continue-on-error: true
         uses: super-linter/super-linter@v7.1.0
@@ -62,7 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SECRET_1 }}
           FILTER_REGEX_EXCLUDE: .*cypress/e2e.*
 
-          
   other_tests:
     needs: build
     runs-on: ubuntu-latest
@@ -100,8 +94,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # E2E
       - name: Cypress run
         uses: cypress-io/github-action@v6
-
-        
